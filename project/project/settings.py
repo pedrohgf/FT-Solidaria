@@ -25,7 +25,9 @@ SECRET_KEY = 'dfe518g&=da$6ta4ks(gpomzt=^68@5i7-+n0ad+-_w&8lem_)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '64.227.29.85'
+]
 
 
 # Application definition
