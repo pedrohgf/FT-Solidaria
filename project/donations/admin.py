@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Donation, RequestedDonation, Giver, Info, Store
+from .models import Donation, RequestedDonation, Giver, Info, Store, ONG
 
 admin.site.register(Donation)
 admin.site.register(RequestedDonation)
 admin.site.register(Giver)
 admin.site.register(Info)
 admin.site.register(Store)
-# Register your models here.
+admin.site.register(ONG)
