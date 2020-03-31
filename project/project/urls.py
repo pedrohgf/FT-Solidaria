@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from donations.views import get_donations
+
+endpoints = [
+    path('api/v1/donations/', get_donations) 
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+] + endpoints
