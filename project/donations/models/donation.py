@@ -9,3 +9,10 @@ class Donation(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.giver, self.items)
+
+    def to_json(self):
+        return {
+            'giver': self.giver.to_json() if self.giver else None,
+            'receiver': self.receiver.to_json() if self.receiver else None,
+            'items': self.items if self.items else None
+        }

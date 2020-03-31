@@ -10,4 +10,10 @@ class Receiver(models.Model):
     def __str__(self):
         return self.name or self.user.name
 
-    
+    def to_json(self):
+        return {
+            'address': self.address if self.address else None,
+            'name': self.name if self.name else None,
+            'payment_ref': self.payment_ref if self.payment_ref else None,
+            'user': (self.user.username) if self.user else None
+        }

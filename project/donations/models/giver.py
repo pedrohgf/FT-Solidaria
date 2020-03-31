@@ -10,3 +10,12 @@ class Giver(models.Model):
     
     def __str__(self):
         return self.name
+
+    def to_json(self):
+        return {
+            'address': self.address if self.address else None,
+            'name': self.name if self.name else None,
+            'email': self.email if self.email else None,
+            'phone': self.phone if self.phone else None,
+            'user': str(self.user.username) if self.user else None,
+        }

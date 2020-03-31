@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from donations.views import get_donations
+from donations.views import get_objects
+from donations.models import *
 
 endpoints = [
-    path('api/v1/donations/', get_donations) 
+    path('api/v1/donations/', get_objects(Donation)),
+    path('api/v1/requested_donations/', get_objects(RequestedDonation)),
+    path('api/v1/givers/', get_objects(Giver)),
+    path('api/v1/receivers/', get_objects(Receiver)),
+    path('api/v1/volunteers/', get_objects(Volunteer)),
 ]
 
 urlpatterns = [
