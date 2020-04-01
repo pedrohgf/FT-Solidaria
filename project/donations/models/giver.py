@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .serializer import Serializer
+from .serializer import serialize
 
-class Giver(Serializer, models.Model):
+@serialize
+class Giver(models.Model):
     address = models.TextField(max_length=256)
     name = models.CharField(max_length=256)
     email = models.EmailField(max_length=256)

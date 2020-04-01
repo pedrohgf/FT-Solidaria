@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .serializer import Serializer
+from .serializer import serialize
 
-class Receiver(Serializer, models.Model):
+@serialize
+class Receiver(models.Model):
     address = models.TextField(max_length=256)
     name = models.CharField(max_length=256)
     payment_ref = models.CharField(max_length=256)

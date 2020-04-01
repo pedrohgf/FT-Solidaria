@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-class Serializer:
+def serialize(class_):
     def to_json(self):
         res = {}
         for field in self._meta.get_fields():
@@ -12,3 +12,6 @@ class Serializer:
                 value = value.username
             res[field.name] = value
         return res
+
+    class_.to_json = to_json
+    return class_ 

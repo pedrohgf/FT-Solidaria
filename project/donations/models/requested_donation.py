@@ -1,8 +1,9 @@
 from django.db import models
 from .receiver import Receiver
-from .serializer import Serializer
+from .serializer import serialize
 
-class RequestedDonation(Serializer, models.Model):
+@serialize
+class RequestedDonation(models.Model):
     receiver = models.ForeignKey(Receiver, on_delete=models.CASCADE, blank=True, null=True)
     items = models.TextField(max_length=256)
 
