@@ -15,17 +15,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from donations.views import get_objects
+from donations.views import get_objects, create_objects, update_objects
 from donations.models import *
 
 endpoints = [
-    path('api/v1/donations/', get_objects(Donation)),
-    path('api/v1/requested_donations/', get_objects(RequestedDonation)),
-    path('api/v1/givers/', get_objects(Giver)),
-    path('api/v1/ongs/', get_objects(ONG)),
-    path('api/v1/volunteers/', get_objects(Volunteer)),
-    path('api/v1/reminders/', get_objects(Reminder)),
-    path('api/v1/favoreds/', get_objects(Favored)),
+    path('api/v1/get/donations/', get_objects(Donation)),
+    path('api/v1/get/requested_donations/', get_objects(RequestedDonation)),
+    path('api/v1/get/givers/', get_objects(Giver)),
+    path('api/v1/get/ongs/', get_objects(ONG)),
+    path('api/v1/get/volunteers/', get_objects(Volunteer)),
+    path('api/v1/get/reminders/', get_objects(Reminder)),
+    path('api/v1/get/favoreds/', get_objects(Favored)),
+    
+    path('api/v1/create/donations/', create_objects(Donation)),
+    path('api/v1/create/requested_donations/', create_objects(RequestedDonation)),
+    path('api/v1/create/givers/', create_objects(Giver)),
+    path('api/v1/create/ongs/', create_objects(ONG)),
+    path('api/v1/create/volunteers/', create_objects(Volunteer)),
+    path('api/v1/create/reminders/', create_objects(Reminder)),
+    path('api/v1/create/favoreds/', create_objects(Favored)),
+    
+    path('api/v1/update/donations/', update_objects(Donation)),
+    path('api/v1/update/requested_donations/', update_objects(RequestedDonation)),
+    path('api/v1/update/givers/', update_objects(Giver)),
+    path('api/v1/update/ongs/', update_objects(ONG)),
+    path('api/v1/update/volunteers/', update_objects(Volunteer)),
+    path('api/v1/update/reminders/', update_objects(Reminder)),
+    path('api/v1/update/favoreds/', update_objects(Favored)),
 ]
 
 urlpatterns = [
