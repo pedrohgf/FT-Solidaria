@@ -1,6 +1,7 @@
 from django.db import models
+from .serializer import Serializer
 
-class Info(models.Model):
+class Info(Serializer, models.Model):
     title = models.CharField(max_length=256)
     description = models.TextField()
     date = models.DateField(auto_now=True)

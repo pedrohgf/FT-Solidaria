@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .serializer import Serializer
 
-class Receiver(models.Model):
+class Receiver(Serializer, models.Model):
     address = models.TextField(max_length=256)
     name = models.CharField(max_length=256)
     payment_ref = models.CharField(max_length=256)
@@ -9,11 +10,3 @@ class Receiver(models.Model):
 
     def __str__(self):
         return self.name or self.user.name
-
-    def to_json(self):
-        return {
-            'address': self.address if self.address else None,
-            'name': self.name if self.name else None,
-            'payment_ref': self.payment_ref if self.payment_ref else None,
-            'user': (self.user.username) if self.user else None
-        }
