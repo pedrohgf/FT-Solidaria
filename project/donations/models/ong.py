@@ -7,7 +7,6 @@ class ONG(models.Model):
     address = models.TextField(max_length=256)
     name = models.CharField(max_length=256)
     site = models.CharField(max_length=256)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name or self.user.name

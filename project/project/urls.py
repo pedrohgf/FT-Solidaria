@@ -22,7 +22,7 @@ endpoints = [
     path('api/v1/donations/', get_objects(Donation)),
     path('api/v1/requested_donations/', get_objects(RequestedDonation)),
     path('api/v1/givers/', get_objects(Giver)),
-    path('api/v1/receivers/', get_objects(Receiver)),
+    path('api/v1/ongs/', get_objects(ONG)),
     path('api/v1/volunteers/', get_objects(Volunteer)),
 ]
 
