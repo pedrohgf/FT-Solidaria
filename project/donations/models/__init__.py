@@ -4,3 +4,5 @@ from .giver import Giver
 from .info import Info
 from .ong import ONG
 from .volunteer import Volunteer
+from .reminder import Reminder
+from .favored import Favored

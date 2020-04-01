@@ -24,6 +24,8 @@ endpoints = [
     path('api/v1/givers/', get_objects(Giver)),
     path('api/v1/ongs/', get_objects(ONG)),
     path('api/v1/volunteers/', get_objects(Volunteer)),
+    path('api/v1/reminders/', get_objects(Reminder)),
+    path('api/v1/favoreds/', get_objects(Favored)),
 ]
 
 urlpatterns = [
