@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from .serializer import serialize
 
 @serialize
-class Receiver(models.Model):
+class ONG(models.Model):
     address = models.TextField(max_length=256)
     name = models.CharField(max_length=256)
-    payment_ref = models.CharField(max_length=256)
+    site = models.CharField(max_length=256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
