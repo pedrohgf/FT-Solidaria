@@ -6,12 +6,14 @@ import json
 import sys
 
 def handle_errors(func):
-    try:
-        return func
-    except Exception as e:
-        response = JsonResponse({'message': repr(e)})
-        response.status_code = 400
-        return response
+    def caller(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except Exception as e:
+            response = JsonResponse({'message': repr(e)})
+            response.status_code = 400
+            return response
+    return caller
 
 def csrf_exempt_on_debug(func):
     return csrf_exempt(func) if settings.DEBUG else func
