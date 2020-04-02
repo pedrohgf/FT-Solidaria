@@ -24,11 +24,10 @@ def get_objects(class_):
     @csrf_exempt_on_debug
     @handle_request_errors
     def wrapper(request):
-        body = json.loads(request.body)
-        if body['attrs']:
-            return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter( **body['attrs']) ], safe=False)  
-        else:
-            return JsonResponse([ obj.to_json() for obj in class_.objects.all()], safe=False)  
+        attrs = {}
+        if request.body:
+            attrs = json.loads(request.body)
+        return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter(**attrs) ], safe=False)  
     return wrapper
 
 def create_objects(class_):
@@ -37,7 +36,10 @@ def create_objects(class_):
     @csrf_exempt_on_debug
     @handle_request_errors
     def wrapper(request):
-        obj = class_(**json.loads(request.body)['attrs'])
+        attrs = {}
+        if request.body:
+            attrs = json.loads(request.body)
+        obj = class_(**attrs)
         obj.save()
         return JsonResponse(obj.to_json())  
     return wrapper
@@ -48,7 +50,9 @@ def update_objects(class_):
     @csrf_exempt_on_debug
     @handle_request_errors
     def wrapper(request):
-        attrs = json.loads(request.body)['attrs']
+        attrs = {}
+        if request.body:
+            attrs = json.loads(request.body)
         obj = class_.objects.get(pk=attrs['pk'])
         for attr in attrs:
             if attr == 'pk': continue
