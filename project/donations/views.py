@@ -24,7 +24,11 @@ def get_objects(class_):
     @csrf_exempt_on_debug
     @handle_request_errors
     def wrapper(request):
-        return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter(**json.loads(request.body)['attrs']) ], safe=False)  
+        body = json.loads(request.body)
+        if body['attrs']:
+            return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter( **body['attrs']) ], safe=False)  
+        else:
+            return JsonResponse([ obj.to_json() for obj in class_.objects.all()], safe=False)  
     return wrapper
 
 def create_objects(class_):
