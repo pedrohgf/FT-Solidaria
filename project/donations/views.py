@@ -5,44 +5,48 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import sys
 
+def handle_errors(func):
+    try:
+        return func
+    except Exception as e:
+        response = JsonResponse({'message': repr(e)})
+        response.status_code = 400
+        return response
+
+def csrf_exempt_on_debug(func):
+    return csrf_exempt(func) if settings.DEBUG else func
+
 def get_objects(class_):
     ''' gets attrs dict on request body and returns all matching items '''
+    
+    @csrf_exempt_on_debug
+    @handle_errors
     def wrapper(request):
-        try:
-            return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter(**json.loads(request.body)['attrs']) ], safe=False)  
-        except Exception as e:
-            response = JsonResponse({'message': repr(e)})
-            response.status_code = 400
-            return response
-    return csrf_exempt(wrapper) if settings.DEBUG else wrapper
+        return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter(**json.loads(request.body)['attrs']) ], safe=False)  
+    return wrapper
 
 def create_objects(class_):
     ''' gets attrs dict on request body and returns created object '''
+
+    @csrf_exempt_on_debug
+    @handle_errors
     def wrapper(request):
-        try:
-            obj = class_(**json.loads(request.body)['attrs'])
-            obj.save()
-            return JsonResponse({'pk': obj.pk})  
-        except Exception as e:
-            response = JsonResponse({'message': repr(e)})
-            response.status_code = 400
-            return response
-    return csrf_exempt(wrapper) if settings.DEBUG else wrapper
+        obj = class_(**json.loads(request.body)['attrs'])
+        obj.save()
+        return JsonResponse(obj.to_json())  
+    return wrapper
     
 def update_objects(class_):
     ''' gets attrs dict on request body and updates object, returning it '''
+    
+    @csrf_exempt_on_debug
+    @handle_errors
     def wrapper(request):
-        try:
-            attrs = json.loads(request.body)['attrs']
-            obj = class_.objects.get(pk=attrs['pk'])
-            for attr in attrs:
-                if attr == 'pk': continue
-                setattr(obj, attr, attrs[attr])
-            obj.save()
-            return JsonResponse(obj.to_json(), safe=False)  
-        except Exception as e:
-            response = JsonResponse({'message': repr(e)})
-            response.status_code = 400
-            return response
-
-    return csrf_exempt(wrapper) if settings.DEBUG else wrapper
+        attrs = json.loads(request.body)['attrs']
+        obj = class_.objects.get(pk=attrs['pk'])
+        for attr in attrs:
+            if attr == 'pk': continue
+            setattr(obj, attr, attrs[attr])
+        obj.save()
+        return JsonResponse(obj.to_json(), safe=False)  
+    return wrapper
