@@ -1,14 +1,9 @@
 import React from 'react';
+import DonationsList from '../../components/DonationsList/'
 
 function Donations(){
-
-
     return(
-        <h1>Hello VEI</h1>
+        <DonationsList/>
     )
-
 }
-
-
 export default Donations;
-
