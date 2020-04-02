@@ -8,7 +8,7 @@ import sys
 def handle_request_errors(func):
     def caller(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except Exception as e:
             response = JsonResponse({'message': repr(e)})
             response.status_code = 400
