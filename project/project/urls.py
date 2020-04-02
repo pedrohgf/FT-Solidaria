@@ -26,6 +26,7 @@ endpoints = [
     path('api/v1/get/volunteers/', get_objects(Volunteer)),
     path('api/v1/get/reminders/', get_objects(Reminder)),
     path('api/v1/get/favoreds/', get_objects(Favored)),
+    path('api/v1/get/infos/', get_objects(Info)),
     
     path('api/v1/create/donations/', create_objects(Donation)),
     path('api/v1/create/requested_donations/', create_objects(RequestedDonation)),
@@ -34,6 +35,7 @@ endpoints = [
     path('api/v1/create/volunteers/', create_objects(Volunteer)),
     path('api/v1/create/reminders/', create_objects(Reminder)),
     path('api/v1/create/favoreds/', create_objects(Favored)),
+    path('api/v1/create/infos/', create_objects(Info)),
     
     path('api/v1/update/donations/', update_objects(Donation)),
     path('api/v1/update/requested_donations/', update_objects(RequestedDonation)),
@@ -42,6 +44,7 @@ endpoints = [
     path('api/v1/update/volunteers/', update_objects(Volunteer)),
     path('api/v1/update/reminders/', update_objects(Reminder)),
     path('api/v1/update/favoreds/', update_objects(Favored)),
+    path('api/v1/update/infos/', update_objects(Info)),
 ]
 
 urlpatterns = [
