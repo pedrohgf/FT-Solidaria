@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import sys
 
-def handle_errors(func):
+def handle_request_errors(func):
     def caller(*args, **kwargs):
         try:
             func(*args, **kwargs)
@@ -22,7 +22,7 @@ def get_objects(class_):
     ''' gets attrs dict on request body and returns all matching items '''
     
     @csrf_exempt_on_debug
-    @handle_errors
+    @handle_request_errors
     def wrapper(request):
         return JsonResponse([ obj.to_json() for obj in class_.objects.all().filter(**json.loads(request.body)['attrs']) ], safe=False)  
     return wrapper
@@ -31,7 +31,7 @@ def create_objects(class_):
     ''' gets attrs dict on request body and returns created object '''
 
     @csrf_exempt_on_debug
-    @handle_errors
+    @handle_request_errors
     def wrapper(request):
         obj = class_(**json.loads(request.body)['attrs'])
         obj.save()
@@ -42,7 +42,7 @@ def update_objects(class_):
     ''' gets attrs dict on request body and updates object, returning it '''
     
     @csrf_exempt_on_debug
-    @handle_errors
+    @handle_request_errors
     def wrapper(request):
         attrs = json.loads(request.body)['attrs']
         obj = class_.objects.get(pk=attrs['pk'])
