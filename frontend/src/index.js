@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import SignIn from './SignIn';
+import Routes from './components/Routes/Routes'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignIn />
+    <Routes />
   </React.StrictMode>,
   document.getElementById('root')
 );
