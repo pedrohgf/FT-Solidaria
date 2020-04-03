@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 export default function GeneralInfo() {
-  const [category, setCategory] = React.useState('');
+  const [category, setCategory] = useState('');
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -40,7 +42,7 @@ export default function GeneralInfo() {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControl fullWidth='true'>
+          <FormControl fullWidth={true}>
             <InputLabel id="category-label">Categoria</InputLabel>
             <Select
               labelId="category-label"

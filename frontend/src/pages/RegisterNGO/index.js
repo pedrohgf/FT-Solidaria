@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import GeneralInfo from './GeneralInfo';
-import PaymentForm from './PaymentForm';
+import SocialForm from './SocialForm';
 import Review from './Review';
 
 function Copyright() {
@@ -66,12 +68,35 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Informações', 'Redes sociais', 'Agradecimento'];
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
 function getStepContent(step) {
   switch (step) {
     case 0:
       return <GeneralInfo />;
     case 1:
-      return <PaymentForm />;
+      return <SocialForm />;
     case 2:
       return <Review />;
     default:
@@ -81,7 +106,10 @@ function getStepContent(step) {
 
 export default function RegisterNGO() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const { width } = useWindowDimensions();
+
+  const stepper_orientation = width < 420 ? 'vertical' : 'horizontal';
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -106,7 +134,7 @@ export default function RegisterNGO() {
           <Typography component="h1" variant="h4" align="center">
             Cadastro
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}  orientation='horizontal'>
+          <Stepper activeStep={activeStep} className={classes.stepper}  orientation={stepper_orientation}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
