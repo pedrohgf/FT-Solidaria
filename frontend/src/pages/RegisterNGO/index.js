@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import GeneralInfo from './GeneralInfo';
 import SocialForm from './SocialForm';
 import Review from './Review';
+import Message from './Message';
 
 function Copyright() {
   return (
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Informações', 'Redes sociais', 'Agradecimento'];
+const steps = ['Informações', 'Redes sociais', 'Agradecimento', 'Resumo'];
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -91,14 +92,16 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-function getStepContent(step) {
+function getStepContent(step, data, setData) {
   switch (step) {
     case 0:
-      return <GeneralInfo />;
+      return <GeneralInfo data={data} setData={setData}/>;
     case 1:
-      return <SocialForm />;
+      return <SocialForm data={data} setData={setData}/>;
     case 2:
-      return <Review />;
+      return <Message data={data} setData={setData}/>;
+    case 3:
+      return <Review data={data}/>;
     default:
       throw new Error('Unknown step');
   }
@@ -108,8 +111,9 @@ export default function RegisterNGO() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const { width } = useWindowDimensions();
+  const [data, setData] = useState({});
 
-  const stepper_orientation = width < 420 ? 'vertical' : 'horizontal';
+  const stepper_orientation = width < 640 ? 'vertical' : 'horizontal';
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -154,7 +158,7 @@ export default function RegisterNGO() {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
+                {getStepContent(activeStep, data, setData)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
