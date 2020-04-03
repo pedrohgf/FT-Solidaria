@@ -6,3 +6,4 @@ from .ong import ONG
 from .volunteer import Volunteer
 from .reminder import Reminder
 from .favored import Favored
+from .ong_category import ONGCategory
