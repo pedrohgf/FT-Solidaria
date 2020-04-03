@@ -22,6 +22,10 @@ class ONG(models.Model):
     message = models.CharField(max_length=256, null=True, blank=True)
     target = models.IntegerField(default=0)
     status = models.CharField(max_length=256, default='PENDING', choices=statuses)
+    city = models.CharField(max_length=256, default='', null=True, blank=True)
+    state = models.CharField(max_length=256, default='', null=True, blank=True)
+    phone = models.CharField(max_length=256, default='')
+    zip_code = models.CharField(max_length=256, default='')
 
     def __str__(self):
         return self.name
