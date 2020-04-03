@@ -2,8 +2,18 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 export default function GeneralInfo() {
+  const [category, setCategory] = React.useState('');
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -30,6 +40,22 @@ export default function GeneralInfo() {
           />
         </Grid>
         <Grid item xs={12}>
+          <FormControl fullWidth='true'>
+            <InputLabel id="category-label">Categoria</InputLabel>
+            <Select
+              labelId="category-label"
+              id="category"
+              value={category}
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>Educação</MenuItem>
+              <MenuItem value={20}>Saúde</MenuItem>
+              <MenuItem value={30}>Infância</MenuItem>
+              <MenuItem value={30}>Outro</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             required
             id="address1"
@@ -50,7 +76,13 @@ export default function GeneralInfo() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="Estado / Província / Região" fullWidth />
+          <TextField
+          required
+            id="state" 
+            name="state" 
+            label="Estado / Província / Região" 
+            fullWidth 
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

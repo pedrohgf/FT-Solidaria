@@ -106,7 +106,7 @@ export default function RegisterNGO() {
           <Typography component="h1" variant="h4" align="center">
             Cadastro
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={activeStep} className={classes.stepper}  orientation='horizontal'>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -130,7 +130,7 @@ export default function RegisterNGO() {
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
-                      Back
+                      VOLTAR
                     </Button>
                   )}
                   <Button
