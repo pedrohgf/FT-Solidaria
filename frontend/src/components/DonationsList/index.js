@@ -10,7 +10,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
-import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {

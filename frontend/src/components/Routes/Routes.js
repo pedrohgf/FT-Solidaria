@@ -1,5 +1,7 @@
 import React from "react";
 import Donations from '../../pages/Donations/'
+import RegisterNGO from '../../pages/RegisterNGO/'
+import SignIn from '../../components/SignIn/'
 import {
     BrowserRouter,
     Switch,
@@ -9,7 +11,9 @@ import {
 const Routes = () => (
     <BrowserRouter>
         <Switch> 
+            <Route exact path='/' component={SignIn} /> 
             <Route exact path='/donations' component={Donations} />   
+            <Route exact path='/ong/cadastramento' component={RegisterNGO} />   
         </Switch>
     </BrowserRouter>
 )
