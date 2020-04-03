@@ -11,7 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 
 export default function GeneralInfo(props) {
 
-  const [category,setCategory]  = useState('');
+  const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
+  const [category,setCategory]  = useState(getData('category'));
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -24,8 +25,6 @@ export default function GeneralInfo(props) {
     console.log(data)
     props.setData(data)
   };
-
-  const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
 
   return (
     <React.Fragment>
@@ -134,7 +133,7 @@ export default function GeneralInfo(props) {
             <Select
               labelId="category-label"
               id="category"
-              value={getData('category')}
+              value={category}
               onChange={handleChange}
             >
               <MenuItem value={10}>Educação</MenuItem>
