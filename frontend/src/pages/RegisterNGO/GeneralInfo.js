@@ -19,25 +19,26 @@ export default function GeneralInfo(props) {
     updateData('category',event.target.value)
   };
 
+  const requiredFields = [
+    'name',
+    'address',
+    'city',
+    'state',
+    'zip_code',
+    'phone'
+  ]
+
   const updateData = (key, value) => {
     let data = props.data;
     data[key] = value;
     console.log(data)
     props.setData(data)
 
-    if (
-      data['name'] !== undefined && data['name'] !== "" &&
-      data['address'] !== undefined && data['address'] !== "" &&
-      data['city'] !== undefined && data['city'] !== "" &&
-      data['state'] !== undefined && data['state'] !== "" &&
-      data['zip_code'] !== undefined && data['zip_code'] !== "" &&
-      data['phone'] !== undefined && data['phone'] !== ""
-    ){
-      props.setDisableButton(false);
-    }
-    else{
-      props.setDisableButton(true);
-    }
+    const bool_arr = requiredFields.map((field) => (data[field] !== undefined && data[field] !== ""))
+    const reducer = (accumulator, currentValue) => accumulator && currentValue;
+    const validated = bool_arr.reduce(reducer);
+
+    props.setDisableButton(!validated); // disable button if form not validated
   };
 
   return (
