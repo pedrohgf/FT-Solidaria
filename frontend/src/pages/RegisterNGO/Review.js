@@ -43,60 +43,96 @@ export default function Review(props) {
           <Typography>
             {getData('site')}
           </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Site
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
             {getData('adress')}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Endereço
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
             {getData('city')}
           </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Cidade
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
             {getData('state')}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Estado / Província / Região
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
             {getData('zip_code')}
           </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            CEP / Código Postal
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
             {getData('phone')}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Telefone
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
             {getData('description')}
           </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Descrição
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
             {getCategory()}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Categoria
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
             {getData('instagram')}
           </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Instagram
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
             {getData('facebook')}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Facebook
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
            {getData('twitter')}
           </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Twitter
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
             {getData('message')}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            Agradecimento
           </Typography>
         </Grid>
       </Grid>

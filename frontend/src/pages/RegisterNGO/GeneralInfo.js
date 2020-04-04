@@ -34,7 +34,7 @@ export default function GeneralInfo(props) {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
-            required
+            required = {true}
             id="name"
             name="name"
             label="Nome"
