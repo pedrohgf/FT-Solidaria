@@ -24,6 +24,20 @@ export default function GeneralInfo(props) {
     data[key] = value;
     console.log(data)
     props.setData(data)
+
+    if (
+      data['name'] !== undefined && data['name'] !== "" &&
+      data['address'] !== undefined && data['address'] !== "" &&
+      data['city'] !== undefined && data['city'] !== "" &&
+      data['state'] !== undefined && data['state'] !== "" &&
+      data['zip_code'] !== undefined && data['zip_code'] !== "" &&
+      data['phone'] !== undefined && data['phone'] !== ""
+    ){
+      props.setDisableButton(false);
+    }
+    else{
+      props.setDisableButton(true);
+    }
   };
 
   return (
@@ -62,8 +76,8 @@ export default function GeneralInfo(props) {
             name="address"
             label="Endereço"
             fullWidth
-            onChange={(item) => updateData('adress',item.target.value)}
-            defaultValue={getData('adress')}
+            onChange={(item) => updateData('address',item.target.value)}
+            defaultValue={getData('address')}
             //autoComplete="billing address-line1"
           />
         </Grid>
@@ -95,6 +109,7 @@ export default function GeneralInfo(props) {
             required
             id="zip"
             name="zip"
+            type="number"
             label="CEP / Código Postal"
             fullWidth
             onChange={(item) => updateData('zip_code',item.target.value)}
@@ -107,6 +122,7 @@ export default function GeneralInfo(props) {
             required
             id="phone"
             name="phone"
+            type="number"
             label="Telefone"
             fullWidth
             onChange={(item) => updateData('phone',item.target.value)}
@@ -143,6 +159,19 @@ export default function GeneralInfo(props) {
             </Select>
           </FormControl>
         </Grid>
+        {category === 40 ? 
+        <Grid item xs={12}>
+          <TextField
+            id="otherCategory"
+            name="otherCategory"
+            label="Nome da Categoria"
+            fullWidth={true}
+            inputProps={{maxLength : 256}}
+            helperText="Escreva o nome da nova categoria que deseja inserir."
+            onChange={(item) => updateData('otherCategory',item.target.value)}
+            defaultValue={getData('otherCategory')}
+          />
+        </Grid> : <></>}
       </Grid>
     </React.Fragment>
   );

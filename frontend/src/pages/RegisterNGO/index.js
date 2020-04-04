@@ -92,10 +92,10 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-function getStepContent(step, data, setData) {
+function getStepContent(step, data, setData, setDisableButton) {
   switch (step) {
     case 0:
-      return <GeneralInfo data={data} setData={setData}/>;
+      return <GeneralInfo data={data} setData={setData} setDisableButton={setDisableButton} />;
     case 1:
       return <SocialForm data={data} setData={setData}/>;
     case 2:
@@ -112,6 +112,7 @@ export default function RegisterNGO() {
   const [activeStep, setActiveStep] = useState(0);
   const { width } = useWindowDimensions();
   const [data, setData] = useState({});
+  const [disableButton, setDisableButton] = useState(true);
 
   const stepper_orientation = width < 640 ? 'vertical' : 'horizontal';
 
@@ -158,7 +159,7 @@ export default function RegisterNGO() {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep, data, setData)}
+                {getStepContent(activeStep, data, setData, setDisableButton)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
@@ -170,6 +171,7 @@ export default function RegisterNGO() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    disabled={disableButton}
                   >
                     {activeStep === steps.length - 1 ? 'Cadastrar' : 'PRÓXIMO'}
                   </Button>

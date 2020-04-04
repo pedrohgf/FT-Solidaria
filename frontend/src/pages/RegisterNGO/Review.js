@@ -39,6 +39,7 @@ export default function Review(props) {
             Nome
           </Typography>
         </Grid>
+        {getData('site') !== "" ? 
         <Grid item xs={12}>
           <Typography>
             {getData('site')}
@@ -46,10 +47,10 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Site
           </Typography>
-        </Grid>
+        </Grid> : <></>}
         <Grid item xs={12}>
           <Typography>
-            {getData('adress')}
+            {getData('address')}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             Endereço
@@ -87,6 +88,7 @@ export default function Review(props) {
             Telefone
           </Typography>
         </Grid>
+        {getData('description') !== "" ? 
         <Grid item xs={12}>
           <Typography>
             {getData('description')}
@@ -94,7 +96,8 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Descrição
           </Typography>
-        </Grid>
+        </Grid> : <></>}
+        {getCategory() !== "" ? 
         <Grid item xs={12}>
           <Typography>
             {getCategory()}
@@ -102,7 +105,8 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Categoria
           </Typography>
-        </Grid>
+        </Grid> : <></>}
+        {getData('instagram') !== "" ? 
         <Grid item xs={12}>
           <Typography>
             {getData('instagram')}
@@ -110,7 +114,8 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Instagram
           </Typography>
-        </Grid>
+        </Grid> : <></>}
+        {getData('facebook') !== "" ? 
         <Grid item xs={12}>
           <Typography>
             {getData('facebook')}
@@ -118,7 +123,8 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Facebook
           </Typography>
-        </Grid>
+        </Grid> : <></>}
+        {getData('twitter') !== "" ? 
         <Grid item xs={12}>
           <Typography>
            {getData('twitter')}
@@ -126,7 +132,8 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Twitter
           </Typography>
-        </Grid>
+        </Grid> : <></>}
+        {getData('message') !== "" ? 
         <Grid item xs={12}>
           <Typography>
             {getData('message')}
@@ -134,7 +141,7 @@ export default function Review(props) {
           <Typography variant="caption" className={classes.caption}>
             Agradecimento
           </Typography>
-        </Grid>
+        </Grid> : <></>}
       </Grid>
     </React.Fragment>
   );
