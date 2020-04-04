@@ -8,15 +8,23 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import brazil_states from '../../assets/brazil_states.json';
+//import InputMask from "react-input-mask";
+
 
 export default function GeneralInfo(props) {
-
   const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
   const [category,setCategory]  = useState(getData('category'));
+  const [state,setState]  = useState(getData('state'));
 
-  const handleChange = (event) => {
+  const handleCategoryChange = (event) => {
     setCategory(event.target.value);
     updateData('category',event.target.value)
+  };
+
+  const handleStateChange = (event) => {
+    setState(event.target.value);
+    updateData('state',event.target.value)
   };
 
   const requiredFields = [
@@ -34,6 +42,7 @@ export default function GeneralInfo(props) {
     console.log(data)
     props.setData(data)
 
+    //validation
     const bool_arr = requiredFields.map((field) => (data[field] !== undefined && data[field] !== ""))
     const reducer = (accumulator, currentValue) => accumulator && currentValue;
     const validated = bool_arr.reduce(reducer);
@@ -56,7 +65,6 @@ export default function GeneralInfo(props) {
             fullWidth
             onChange={(item) => updateData('name',item.target.value)}
             defaultValue={getData('name')}
-           // autoComplete="fname"
           />
         </Grid>
         <Grid item xs={12}>
@@ -67,7 +75,6 @@ export default function GeneralInfo(props) {
             fullWidth
             onChange={(item) => updateData('site',item.target.value)}
             defaultValue={getData('site')}
-            //autoComplete="billing address-level2"
           />
         </Grid>
         <Grid item xs={12}>
@@ -79,7 +86,6 @@ export default function GeneralInfo(props) {
             fullWidth
             onChange={(item) => updateData('address',item.target.value)}
             defaultValue={getData('address')}
-            //autoComplete="billing address-line1"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -91,19 +97,22 @@ export default function GeneralInfo(props) {
             fullWidth
             onChange={(item) => updateData('city',item.target.value)}
             defaultValue={getData('city')}
-            //autoComplete="billing address-level2"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-          required
-            id="state" 
-            name="state" 
-            label="Estado / Província / Região" 
-            fullWidth
-            onChange={(item) => updateData('state',item.target.value)}
-            defaultValue={getData('state')}
-          />
+          <FormControl fullWidth={true}>
+            <InputLabel id="state-label">Estado</InputLabel>
+            <Select
+              labelId="state-label"
+              id="state"
+              value={state}
+              onChange={handleStateChange}
+            >
+            {brazil_states.map(state => 
+              (<MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>)
+            )}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -115,7 +124,6 @@ export default function GeneralInfo(props) {
             fullWidth
             onChange={(item) => updateData('zip_code',item.target.value)}
             defaultValue={getData('zip_code')}
-            // autoComplete="billing postal-code"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -128,7 +136,6 @@ export default function GeneralInfo(props) {
             fullWidth
             onChange={(item) => updateData('phone',item.target.value)}
             defaultValue={getData('phone')}
-           // autoComplete="billing country"
           />
         </Grid>
         <Grid item xs={12}>
@@ -151,7 +158,7 @@ export default function GeneralInfo(props) {
               labelId="category-label"
               id="category"
               value={category}
-              onChange={handleChange}
+              onChange={handleCategoryChange}
             >
               <MenuItem value={10}>Educação</MenuItem>
               <MenuItem value={20}>Saúde</MenuItem>

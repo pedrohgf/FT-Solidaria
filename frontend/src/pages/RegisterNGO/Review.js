@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import brazil_states from '../../assets/brazil_states.json';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -24,7 +25,11 @@ export default function Review(props) {
   const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
 
   const getCategory = () => getData('category')
-
+  const getState = () => {
+    const state = brazil_states.find(state => state.id === getData('state'))
+    return state.name
+  }
+  
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -66,10 +71,10 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
-            {getData('state')}
+            {getState('state')}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
-            Estado / Província / Região
+            Estado
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
