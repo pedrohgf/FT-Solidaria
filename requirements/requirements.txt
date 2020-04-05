@@ -1,0 +1,5 @@
+django>=3.0,<3.1
+pytz==2019.3
+sqlparse==0.3.1
+django-debug-toolbar==1.8
+ipdb==0.10.1
