@@ -10,12 +10,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import brazil_states from '../../assets/brazil_states.json';
 //import InputMask from "react-input-mask";
-
+import ZipCodeMask from '../../components/Masks/ZipCodeMask';
 
 export default function GeneralInfo(props) {
   const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
   const [category,setCategory]  = useState(getData('category'));
   const [state,setState]  = useState(getData('state'));
+  const [zipCode, setZipCode] = useState("");
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -49,6 +50,20 @@ export default function GeneralInfo(props) {
 
     props.setDisableButton(!validated); // disable button if form not validated
   };
+
+  const updateZipCode = (value) => {
+    let mask = ""
+    
+    if (zipCode.search("-") !== -1 && value.search("-") === -1){
+      mask = value
+    }
+    else{ 
+      mask = ZipCodeMask(value)
+    }
+
+    setZipCode(mask)
+    updateData('zip_code',mask)
+  }
 
   return (
     <React.Fragment>
@@ -119,10 +134,10 @@ export default function GeneralInfo(props) {
             required
             id="zip"
             name="zip"
-            type="number"
             label="CEP / Código Postal"
             fullWidth
-            onChange={(item) => updateData('zip_code',item.target.value)}
+            value={zipCode}
+            onChange={(item) =>  updateZipCode(item.target.value)}
             defaultValue={getData('zip_code')}
           />
         </Grid>
