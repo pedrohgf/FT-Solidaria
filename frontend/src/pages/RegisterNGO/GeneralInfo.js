@@ -11,12 +11,14 @@ import FormControl from '@material-ui/core/FormControl';
 import brazil_states from '../../assets/brazil_states.json';
 //import InputMask from "react-input-mask";
 import ZipCodeMask from '../../components/Masks/ZipCodeMask';
+import PhoneMask from '../../components/Masks/PhoneMask';
 
 export default function GeneralInfo(props) {
   const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
   const [category,setCategory]  = useState(getData('category'));
   const [state,setState]  = useState(getData('state'));
-  const [zipCode, setZipCode] = useState("");
+  const [zipCode, setZipCode] = useState(getData('zip_code'));
+  const [phone, setPhone] = useState(getData('phone'));
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -54,15 +56,23 @@ export default function GeneralInfo(props) {
   const updateZipCode = (value) => {
     let mask = ""
     
-    if (zipCode.search("-") !== -1 && value.search("-") === -1){
-      mask = value
-    }
-    else{ 
-      mask = ZipCodeMask(value)
-    }
+    mask = ZipCodeMask(value)
 
     setZipCode(mask)
+
     updateData('zip_code',mask)
+  }
+
+  const updatePhone = (value) => {
+    let mask = ""
+    
+    mask = PhoneMask(value)
+
+    console.log(mask)
+
+    setPhone(mask)
+
+    updateData('phone', mask)
   }
 
   return (
@@ -135,10 +145,12 @@ export default function GeneralInfo(props) {
             id="zip"
             name="zip"
             label="CEP / Código Postal"
+            inputProps={{
+              maxLength: 9,
+            }}
             fullWidth
             value={zipCode}
             onChange={(item) =>  updateZipCode(item.target.value)}
-            defaultValue={getData('zip_code')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -146,11 +158,13 @@ export default function GeneralInfo(props) {
             required
             id="phone"
             name="phone"
-            type="number"
             label="Telefone"
+            inputProps={{
+              maxLength: 15,
+            }} 
+            value = {phone}
             fullWidth
-            onChange={(item) => updateData('phone',item.target.value)}
-            defaultValue={getData('phone')}
+            onChange={(item) => updatePhone(item.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
