@@ -68,8 +68,6 @@ export default function GeneralInfo(props) {
     
     mask = PhoneMask(value)
 
-    console.log(mask)
-
     setPhone(mask)
 
     updateData('phone', mask)
@@ -126,7 +124,7 @@ export default function GeneralInfo(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth={true}>
-            <InputLabel id="state-label">Estado</InputLabel>
+            <InputLabel id="state-label" required>Estado</InputLabel>
             <Select
               labelId="state-label"
               id="state"
