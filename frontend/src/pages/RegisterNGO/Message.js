@@ -15,7 +15,7 @@ export default function Message(props) {
     const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
     
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Agradecimento aos doadores
       </Typography>
@@ -34,6 +34,6 @@ export default function Message(props) {
             />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

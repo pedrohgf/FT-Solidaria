@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,18 +12,30 @@ import brazil_states from '../../assets/brazil_states.json';
 //import InputMask from "react-input-mask";
 import ZipCodeMask from '../../components/Masks/ZipCodeMask';
 import PhoneMask from '../../components/Masks/PhoneMask';
+import axios from 'axios';
 
 export default function GeneralInfo(props) {
   const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
-  const [category,setCategory]  = useState(getData('category'));
+  const [category, setCategory]  = useState(getData('category_id'));
   const [state,setState]  = useState(getData('state'));
   const [zipCode, setZipCode] = useState(getData('zip_code'));
   const [phone, setPhone] = useState(getData('phone'));
+  const [categories, setCategories] = useState([]);
 
   const handleCategoryChange = (event) => {
+    console.log(event)
     setCategory(event.target.value);
-    updateData('category',event.target.value)
+    updateData('category_id',event.target.value);
+    updateData('category_name', event.target.labelId);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+    	const response = await axios.get('http://64.227.29.85:8000/api/v1/get/ong_category/');
+    	setCategories(response.data);
+    }
+    fetchData();
+  }, []);
 
   const handleStateChange = (event) => {
     setState(event.target.value);
@@ -74,7 +86,7 @@ export default function GeneralInfo(props) {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Informações Gerais
       </Typography>
@@ -178,6 +190,7 @@ export default function GeneralInfo(props) {
             defaultValue={getData('description')}
           />
         </Grid>
+        {(categories.length > 0)  &&
         <Grid item xs={12}>
           <FormControl fullWidth={true}>
             <InputLabel id="category-label">Categoria</InputLabel>
@@ -187,13 +200,13 @@ export default function GeneralInfo(props) {
               value={category}
               onChange={handleCategoryChange}
             >
-              <MenuItem value={10}>Educação</MenuItem>
-              <MenuItem value={20}>Saúde</MenuItem>
-              <MenuItem value={30}>Infância</MenuItem>
-              <MenuItem value={40}>Outro</MenuItem>
+            {categories.map(category =>
+              (<MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)
+            )}
             </Select>
           </FormControl>
         </Grid>
+        }
         {category === 40 ? 
         <Grid item xs={12}>
           <TextField
@@ -208,6 +221,6 @@ export default function GeneralInfo(props) {
           />
         </Grid> : <></>}
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

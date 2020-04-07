@@ -16,6 +16,7 @@ import GeneralInfo from './GeneralInfo';
 import SocialForm from './SocialForm';
 import Review from './Review';
 import Message from './Message';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -113,19 +114,28 @@ export default function RegisterNGO() {
   const { width } = useWindowDimensions();
   const [data, setData] = useState({});
   const [disableButton, setDisableButton] = useState(true);
-
   const stepper_orientation = width < 640 ? 'vertical' : 'horizontal';
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    activeStep === 3 ? saveONG() : setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const saveONG = async () => {
+    try {
+      console.log("REQUEST FINAL:")
+      console.log(data)
+      await axios.post("http://64.227.29.85:8000/api/v1/create/ongs/", data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
@@ -146,19 +156,18 @@ export default function RegisterNGO() {
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
+          <>
             {activeStep === steps.length ? (
-              <React.Fragment>
+              <>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Obrigado pelo seu cadastro!
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  Mensagem de agradecimento do Ajudaê.
                 </Typography>
-              </React.Fragment>
+              </>
             ) : (
-              <React.Fragment>
+              <>
                 {getStepContent(activeStep, data, setData, setDisableButton)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
@@ -176,12 +185,12 @@ export default function RegisterNGO() {
                     {activeStep === steps.length - 1 ? 'Cadastrar' : 'PRÓXIMO'}
                   </Button>
                 </div>
-              </React.Fragment>
+              </>
             )}
-          </React.Fragment>
+          </>
         </Paper>
         <Copyright />
       </main>
-    </React.Fragment>
+    </>
   );
 }

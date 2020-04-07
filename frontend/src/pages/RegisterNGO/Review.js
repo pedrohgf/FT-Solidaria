@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import brazil_states from '../../assets/brazil_states.json';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -19,43 +18,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Review(props) {
+export default function Review({data , data : {name, site, address, city, category_id, state, zip_code, phone, description, instagram, facebook, twitter, message}}) {
+
   const classes = useStyles();
 
-  const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
-
-  const getCategory = () => getData('category')
-  const getState = () => {
-    const state = brazil_states.find(state => state.id === getData('state'))
-    return state.name
-  }
-  
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Informações Gerais
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography>
-            {getData('name')}
+            {name}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             Nome
           </Typography>
         </Grid>
-        {getData('site') !== "" ? 
+        {site &&
+          <Grid item xs={12}>
+            <Typography>
+              {site}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Site
+          </Typography>
+          </Grid>}
         <Grid item xs={12}>
           <Typography>
-            {getData('site')}
-          </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Site
-          </Typography>
-        </Grid> : <></>}
-        <Grid item xs={12}>
-          <Typography>
-            {getData('address')}
+            {address}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             Endereço
@@ -63,7 +55,7 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
-            {getData('city')}
+            {city}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             Cidade
@@ -71,7 +63,7 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
-            {getState('state')}
+            {state}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             Estado
@@ -79,7 +71,7 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
-            {getData('zip_code')}
+            {zip_code}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             CEP / Código Postal
@@ -87,67 +79,67 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography>
-            {getData('phone')}
+            {phone}
           </Typography>
           <Typography variant="caption" className={classes.caption}>
             Telefone
           </Typography>
         </Grid>
-        {getData('description') !== "" ? 
-        <Grid item xs={12}>
-          <Typography>
-            {getData('description')}
+        {description &&
+          <Grid item xs={12}>
+            <Typography>
+              {description}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Descrição
           </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Descrição
+          </Grid>}
+        {category_id &&
+          <Grid item xs={12}>
+            <Typography>
+              {category_id}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Categoria
           </Typography>
-        </Grid> : <></>}
-        {getCategory() !== "" ? 
-        <Grid item xs={12}>
-          <Typography>
-            {getCategory()}
+          </Grid>}
+        {instagram &&
+          <Grid item xs={12}>
+            <Typography>
+              {instagram}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Instagram
           </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Categoria
+          </Grid>}
+        {facebook &&
+          <Grid item xs={12}>
+            <Typography>
+              {facebook}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Facebook
           </Typography>
-        </Grid> : <></>}
-        {getData('instagram') !== "" ? 
-        <Grid item xs={12}>
-          <Typography>
-            {getData('instagram')}
+          </Grid>}
+        {twitter &&
+          <Grid item xs={12}>
+            <Typography>
+              {twitter}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Twitter
           </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Instagram
+          </Grid>}
+        {message &&
+          <Grid item xs={12}>
+            <Typography>
+              {message}
+            </Typography>
+            <Typography variant="caption" className={classes.caption}>
+              Agradecimento
           </Typography>
-        </Grid> : <></>}
-        {getData('facebook') !== "" ? 
-        <Grid item xs={12}>
-          <Typography>
-            {getData('facebook')}
-          </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Facebook
-          </Typography>
-        </Grid> : <></>}
-        {getData('twitter') !== "" ? 
-        <Grid item xs={12}>
-          <Typography>
-           {getData('twitter')}
-          </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Twitter
-          </Typography>
-        </Grid> : <></>}
-        {getData('message') !== "" ? 
-        <Grid item xs={12}>
-          <Typography>
-            {getData('message')}
-          </Typography>
-          <Typography variant="caption" className={classes.caption}>
-            Agradecimento
-          </Typography>
-        </Grid> : <></>}
+          </Grid>}
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
