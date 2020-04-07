@@ -97,7 +97,7 @@ export default function Review({data , data : {name, site, address, city, catego
         {category_id &&
           <Grid item xs={12}>
             <Typography>
-              {category_id}
+              {category_id[0].name}
             </Typography>
             <Typography variant="caption" className={classes.caption}>
               Categoria

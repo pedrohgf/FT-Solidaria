@@ -9,14 +9,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import brazil_states from '../../assets/brazil_states.json';
-//import InputMask from "react-input-mask";
 import ZipCodeMask from '../../components/Masks/ZipCodeMask';
 import PhoneMask from '../../components/Masks/PhoneMask';
 import axios from 'axios';
 
 export default function GeneralInfo(props) {
   const getData = (key) => (props.data[key] !== undefined ? props.data[key] : "")
-  const [category, setCategory]  = useState(getData('category_id'));
+  const [category, setCategory]  = useState(getData('category_id')===''?'':getData('category_id')[0].id);
   const [state,setState]  = useState(getData('state'));
   const [zipCode, setZipCode] = useState(getData('zip_code'));
   const [phone, setPhone] = useState(getData('phone'));
@@ -25,14 +24,14 @@ export default function GeneralInfo(props) {
   const handleCategoryChange = (event) => {
     console.log(event)
     setCategory(event.target.value);
-    updateData('category_id',event.target.value);
-    updateData('category_name', event.target.labelId);
+    updateData('category_id', categories.filter(item => item.id === event.target.value));
   };
 
+  
   useEffect(() => {
     const fetchData = async () => {
     	const response = await axios.get('http://64.227.29.85:8000/api/v1/get/ong_category/');
-    	setCategories(response.data);
+      setCategories(response.data);
     }
     fetchData();
   }, []);
