@@ -126,9 +126,11 @@ export default function RegisterNGO() {
 
   const saveONG = async () => {
     try {
-      console.log("REQUEST FINAL:")
-      console.log(data)
-      await axios.post("http://64.227.29.85:8000/api/v1/create/ongs/", data);
+      console.log("REQUEST FINAL:");
+      console.log(data);
+      const post_data = Object.assign({},data);
+      post_data.category_id = post_data.category_id[0].id;
+      await axios.post("http://64.227.29.85:8000/api/v1/create/ongs/", post_data);
     } catch (err) {
       console.log(err);
     }
