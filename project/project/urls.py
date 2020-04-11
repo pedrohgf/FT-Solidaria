@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from donations.views import get_objects, create_objects, update_objects
+from donations.views import get_objects, create_objects, update_objects, delete_objects
 from donations.models import *
 
 endpoints = [
@@ -48,6 +48,16 @@ endpoints = [
     path('api/v1/update/favoreds/', update_objects(Favored)),
     path('api/v1/update/infos/', update_objects(Info)),
     path('api/v1/update/ong_category/', update_objects(ONGCategory)),
+
+    path('api/v1/delete/donations/', delete_objects(Donation)),
+    path('api/v1/delete/requested_donations/', delete_objects(RequestedDonation)),
+    path('api/v1/delete/givers/', delete_objects(Giver)),
+    path('api/v1/delete/ongs/', delete_objects(ONG)),
+    path('api/v1/delete/volunteers/', delete_objects(Volunteer)),
+    path('api/v1/delete/reminders/', delete_objects(Reminder)),
+    path('api/v1/delete/favoreds/', delete_objects(Favored)),
+    path('api/v1/delete/infos/', delete_objects(Info)),
+    path('api/v1/delete/ong_category/', delete_objects(ONGCategory)),
 ]
 
 urlpatterns = [

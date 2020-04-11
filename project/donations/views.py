@@ -53,10 +53,25 @@ def update_objects(class_):
         attrs = {}
         if request.body:
             attrs = json.loads(request.body)
-        obj = class_.objects.get(pk=attrs['pk'])
+        obj = class_.objects.get(pk=attrs['id'])
         for attr in attrs:
-            if attr == 'pk': continue
+            if attr == 'id': continue
             setattr(obj, attr, attrs[attr])
         obj.save()
+        return JsonResponse(obj.to_json(), safe=False)  
+    return wrapper
+
+def delete_objects(class_):
+    @csrf_exempt_on_debug
+    @handle_request_errors
+    def wrapper(request):
+        attrs = {}
+        if request.body:
+            attrs = json.loads(request.body)
+        obj = class_.objects.get(pk=attrs['id'])
+        if obj:
+            obj.delete()
+        else:
+            raise Exception('ObjectNotFoundError; does the supplied id exist?')
         return JsonResponse(obj.to_json(), safe=False)  
     return wrapper
