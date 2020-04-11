@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from donations.views import get_objects, create_objects, update_objects, delete_objects
+from donations.views import get_objects, create_objects, update_objects, delete_objects, auth_user
 from donations.models import *
 
 endpoints = [
+    path('api/v1/auth/', auth_user),
+
     path('api/v1/get/donations/', get_objects(Donation)),
     path('api/v1/get/requested_donations/', get_objects(RequestedDonation)),
     path('api/v1/get/givers/', get_objects(Giver)),

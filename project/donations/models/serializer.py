@@ -1,4 +1,7 @@
+serializable_classes = {}
+
 def serialize(class_):
+    serializable_classes[class_.__name__.lower()] = class_
     def to_json(self):
         res = {}
         for field in self._meta.get_fields():
@@ -12,7 +15,7 @@ def serialize(class_):
         return res
 
     if class_.__name__ == 'User':
-        class_.to_json = lambda self: {field: getattr(self, field, None) for field in ['username', 'id']}
+        class_.to_json = lambda self: {field: getattr(self, field, None) for field in ['username', 'id', 'address', 'phone']}
     else:
         class_.to_json = to_json
     return class_ 

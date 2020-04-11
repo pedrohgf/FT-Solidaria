@@ -15,7 +15,7 @@ class ONG(models.Model):
     name = models.CharField(max_length=256)
     site = models.CharField(max_length=256)
     description = models.TextField(max_length=256)
-    category = models.ForeignKey(ONGCategory, on_delete=models.CASCADE)
+    ongcategory = models.ForeignKey(ONGCategory, on_delete=models.CASCADE)
     facebook = models.CharField(max_length=256, null=True, blank=True)
     instagram = models.CharField(max_length=256, null=True, blank=True)
     twitter = models.CharField(max_length=256, null=True, blank=True)
