@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from .user import User
 from .ong import ONG
 from .serializer import serialize
 

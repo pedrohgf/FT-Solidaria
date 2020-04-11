@@ -34,7 +34,6 @@ def create_objects(class_):
     ''' gets attrs dict on request body and returns created object '''
 
     @csrf_exempt_on_debug
-    @handle_request_errors
     def wrapper(request):
         attrs = {}
         if request.body:
