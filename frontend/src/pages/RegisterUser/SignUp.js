@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import PhoneMask from '../../components/Masks/PhoneMask';
 //import axios from 'axios'
 
 function Copyright() {
@@ -55,6 +56,11 @@ export default function SignUp() {
         const field = {};
         field[fieldName] = e.target.value;
         setData({ ...data, ...field });
+    }
+
+    const updatePhone = (item) => {
+        item.target.value = PhoneMask(item.target.value)
+        handleChange(item, 'phone')
     }
 
     const saveUser = (e) => {
@@ -116,7 +122,10 @@ export default function SignUp() {
                                 label="Telefone"
                                 name="phone"
                                 autoComplete="phone"
-                                onChange={(e) => handleChange(e, "phone")}
+                                inputProps={{
+                                    maxLength: 15
+                                }}
+                                onChange={(item) => updatePhone(item)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
