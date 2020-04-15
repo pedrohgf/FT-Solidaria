@@ -17,9 +17,10 @@ def hash_password(password):
 
 @serialize
 class User(django_default_user):
-    address = models.TextField(max_length=256)
+    address = models.TextField(max_length=256, null=True, blank=True)
     phone = models.CharField(max_length=256)
-    status= models.CharField(max_length=255, default='ACTIVE', choices=statuses)
+    fullname = models.CharField(max_length=256)
+    status = models.CharField(max_length=255, default='ACTIVE', choices=statuses)
 
     def auth(self, password):
         salt = self.password[:64]
@@ -32,6 +33,14 @@ class User(django_default_user):
         return pwdhash == self.password[:128]
 
     def save(self, *args, **kwargs):
+        names = []
+        if self.fullname:
+            names = str(self.fullname).split()
+            if len(names) > 0:
+                self.name = names[0]
+            if len(names) > 1:
+                self.last_name = ' '.join(names[1:])
+
         if self.password:
             self.password = hash_password(self.password)[:128]
         super(User, self).save(*args, **kwargs)
