@@ -25,6 +25,10 @@ class User(django_default_user):
     twitter = models.CharField(max_length=256, null=True, blank=True)
     status = models.CharField(max_length=255, default='ACTIVE', choices=statuses)
 
+    @staticmethod
+    def get_serializable_fields():
+        return ['id', 'fullname', 'phone', 'address', 'facebook', 'instagram', 'twitter', 'status']
+
     def auth(self, password):
         salt = self.password[:64]
         self.password = self.password[64:]

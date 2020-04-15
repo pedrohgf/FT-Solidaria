@@ -14,8 +14,8 @@ def serialize(class_):
             res[field.name] = value
         return res
 
-    if class_.__name__ == 'User':
-        class_.to_json = lambda self: {field: getattr(self, field, None) for field in ['username', 'id', 'address', 'phone']}
+    if hasattr(class_, 'get_serializable_fields'):
+        class_.to_json = lambda self: {field: getattr(self, field, None) for field in class_.get_serializable_fields()}
     else:
         class_.to_json = to_json
     return class_ 
