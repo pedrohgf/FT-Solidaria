@@ -17,9 +17,12 @@ def hash_password(password):
 
 @serialize
 class User(django_default_user):
-    address = models.TextField(max_length=256, null=True, blank=True)
     phone = models.CharField(max_length=256)
     fullname = models.CharField(max_length=256)
+    address = models.TextField(max_length=256, null=True, blank=True)
+    facebook = models.CharField(max_length=256, null=True, blank=True)
+    instagram = models.CharField(max_length=256, null=True, blank=True)
+    twitter = models.CharField(max_length=256, null=True, blank=True)
     status = models.CharField(max_length=255, default='ACTIVE', choices=statuses)
 
     def auth(self, password):
