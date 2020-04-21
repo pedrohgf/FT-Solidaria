@@ -34,7 +34,7 @@ def get_objects(class_):
     return wrapper
 
 def get_or_create(class_, attrs):
-    print('@get_or_create', class_, attrs)
+    # print('@get_or_create', class_, attrs)
     obj = None
     
     for attr in list(attrs.keys())[:]:
@@ -59,12 +59,12 @@ def create_objects(class_):
         if request.body:
             attrs = json.loads(request.body)
         for attr in list(attrs.keys())[:]:
-            print(attr, attr in serializable_classes)
+            # print(attr, attr in serializable_classes)
             if attr in serializable_classes and type(attrs[attr]) == dict:
                 attrs[attr + '_id'] = get_or_create(attr, attrs[attr])
                 del attrs[attr]
 
-        print(attrs)
+        # print(attrs)
         obj = class_(**attrs)
         obj.save()
         return JsonResponse(obj.to_json())  
