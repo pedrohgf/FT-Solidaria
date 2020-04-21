@@ -10,8 +10,8 @@ roles = [
 
 @serialize
 class Volunteer(models.Model):
-    role = models.CharField(max_length=256, choices=roles)
-    ong = models.ForeignKey(ONG, on_delete=models.CASCADE)
+    role = models.CharField(max_length=256, choices=roles, blank=True, null=True)
+    ong = models.ForeignKey(ONG, on_delete=models.CASCADE, blank=True, null=True)
     range_limit = models.IntegerField(verbose_name='Raio (km)', default=5, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
